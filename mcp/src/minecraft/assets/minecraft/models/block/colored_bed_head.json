@@ -1,0 +1,36 @@
+{
+    "textures": {
+        "particle": "blocks/colored_bed_head_top",
+        "top": "blocks/colored_bed_head_top",
+        "bottom": "blocks/bree_oak_planks",
+        "end": "blocks/colored_bed_head_end",
+        "side": "blocks/colored_bed_head_side",
+        "overlay_top": "blocks/colored_bed_head_overlay_top",
+        "overlay_side": "blocks/colored_bed_head_overlay_side"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 9, 16 ],
+            "faces": {
+                "up":    { "uv": [  0, 16, 16,  0 ], "texture": "#top", "rotation": 90 },
+                "south": { "uv": [  0,  7, 16, 16 ], "texture": "#end" },
+                "west":  { "uv": [  0,  7, 16, 16 ], "texture": "#side" },
+                "east":  { "uv": [ 16,  7,  0, 16 ], "texture": "#side" }
+            }
+        },
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 9, 16 ],
+            "faces": {
+                "up":    { "uv": [  0, 16, 16,  0 ], "texture": "#overlay_top", "rotation": 90, "tintindex": 0 },
+                "west":  { "uv": [  0,  7, 16, 16 ], "texture": "#overlay_side", "tintindex": 0 },
+                "east":  { "uv": [ 16,  7,  0, 16 ], "texture": "#overlay_side", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 0, 3, 0 ],
+            "to": [ 16, 3, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#bottom" }
+            }
+        }
+    ]
+}
