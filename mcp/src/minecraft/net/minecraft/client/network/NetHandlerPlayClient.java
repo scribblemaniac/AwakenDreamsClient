@@ -814,6 +814,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
             if (tileentity != null)
             {
+            	System.out.println("handleChunkData: " + nbttagcompound.toString());
                 tileentity.readFromNBT(nbttagcompound);
             }
         }

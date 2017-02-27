@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
+import com.elementfx.tvp.ad.block.BlockColoredBed;
 import com.elementfx.tvp.ad.block.BlockCustomBed;
 import com.elementfx.tvp.ad.block.BlockCustomCrops;
+import com.elementfx.tvp.ad.item.ItemColoredBed;
 import com.elementfx.tvp.ad.item.ItemCustomArmor;
 import com.elementfx.tvp.ad.item.ItemCustomBed;
 import com.elementfx.tvp.ad.item.ItemCustomFood;
@@ -1601,6 +1603,7 @@ public class Item
         registerItem(6323, "strawberry_seed", (new ItemSeeds(Blocks.STRAWBERRY_BUSH, Blocks.FARMLAND)).setUnlocalizedName("strawberrySeed"));
         //registerItem(6324, "azogs_mace", (new ItemValarWeapon(3500, 7, 0, true, false)).setUnlocalizedName("azogsMace").setTextureName("azogs_mace"));
         registerItem(6325, "ring", (new ItemRing()).setUnlocalizedName("ring"));
+        registerItem(6326, "colored_bed", (new ItemColoredBed((BlockColoredBed)Blocks.COLORED_BED)).setUnlocalizedName("colored_bed"));
         // Temporary Id, change to proper id when adding items
         //registerItem(10002, "rucksack", (new ItemValarRucksack()).setUnlocalizedName("rucksack").setTextureName("rucksack"));
         //registerItem(10003, "frodos_finger", (new ItemValarFood(2, 0.1F, true).setUnlocalizedName("frodosFinger").setTextureName("frodos_finger")));

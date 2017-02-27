@@ -1575,6 +1575,14 @@ public class RenderItem implements IResourceManagerReloadListener
             	return new ModelResourceLocation(stack.getUnlocalizedName().substring(5).replace('.', '_'), "inventory");
             }
         });
+        this.itemModelMesher.register(Items.COLORED_BED, new ItemMeshDefinition()
+        {
+            public ModelResourceLocation getModelLocation(ItemStack stack)
+            {
+            	//System.out.println("ColoredBed: " + stack.getUnlocalizedName().substring(5).replace('.', '_'));
+            	return new ModelResourceLocation(stack.getUnlocalizedName().substring(5).replace('.', '_'), "inventory");
+            }
+        });
         // End Awaken Dreams code
     }
 

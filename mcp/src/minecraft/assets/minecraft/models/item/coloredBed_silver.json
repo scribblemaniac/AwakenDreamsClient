@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-	  "layer0": "items/amber_gold_ring"
+	  "layer0": "items/colored_bed_silver"
   }
 }

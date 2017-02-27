@@ -4,9 +4,9 @@
         "bottom": "blocks/bree_oak_planks",
         "end": "blocks/colored_bed_feet_end",
         "side": "blocks/colored_bed_feet_side",
-        "overlay_top": "blocks/colored_overlay_bed_feet_top",
-        "overlay_side": "blocks/colored_overlay_bed_feet_side",
-        "overlay_end": "blocks/colored_overlay_bed_feet_end"
+        "overlay_top": "blocks/colored_bed_feet_top",
+        "overlay_side": "blocks/colored_bed_feet_side_overlay",
+        "overlay_end": "blocks/colored_bed_feet_end_overlay"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

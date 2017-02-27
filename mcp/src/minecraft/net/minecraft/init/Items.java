@@ -478,6 +478,7 @@ public class Items
     public static final Item ROHAN_BOOTS;
     public static final Item ROHAN_LEGGINS;
     public static final Item RING;
+    public static final Item COLORED_BED;
     // End Awaken Dreams code
 
     private static Item getRegisteredItem(String name)
@@ -992,6 +993,7 @@ public class Items
             ROHAN_BOOTS = getRegisteredItem("rohan_boots");
             ROHAN_LEGGINS = getRegisteredItem("rohan_leggins");
             RING = getRegisteredItem("ring");
+            COLORED_BED = getRegisteredItem("colored_bed");
             // End Awaken Dreams code
         }
     }

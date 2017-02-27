@@ -424,6 +424,12 @@ public class ModelBakery
         	ringNames.add(ring.getUnlocalizedName().substring(5).replace('.', '_'));
         }
         this.variantNames.put(Items.RING, ringNames);
+        ArrayList<String> coloredBedNames = new ArrayList<String>();
+        for(int i = 0; i < 16; i++)
+        {
+        	coloredBedNames.add((new ItemStack(Items.COLORED_BED, 1, i)).getUnlocalizedName().substring(5).replace('.', '_'));
+        }
+        this.variantNames.put(Items.COLORED_BED, coloredBedNames);
         // End Awaken Dreams code
     }
 

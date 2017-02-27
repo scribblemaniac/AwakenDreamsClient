@@ -1,14 +1,16 @@
 package com.elementfx.tvp.ad.block;
 
+import java.util.Collection;
 import java.util.Random;
 import javax.annotation.Nullable;
 
-import com.elementfx.tvp.ad.tileentity.TileEntityBell;
+import com.elementfx.tvp.ad.tileentity.TileEntityColoredBed;
 
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -36,18 +38,19 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockColoredBed extends BlockBed  implements ITileEntityProvider
+public class BlockColoredBed extends BlockBed implements ITileEntityProvider
 {
-	public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
+	public static final PropertyInteger DYE = PropertyInteger.create("dye", 0, 15);
 	
     public BlockColoredBed()
     {
         super();
+        this.setDefaultState(this.getDefaultState().withProperty(DYE, Integer.valueOf(0)));
         this.setHardness(0.2F);
         this.setSoundType(SoundType.CLOTH);
         this.isBlockContainer = true;
     }
-    
+
     protected boolean isInvalidNeighbor(World worldIn, BlockPos pos, EnumFacing facing)
     {
         return worldIn.getBlockState(pos.offset(facing)).getMaterial() == Material.CACTUS;
@@ -56,14 +59,6 @@ public class BlockColoredBed extends BlockBed  implements ITileEntityProvider
     protected boolean hasInvalidNeighbor(World worldIn, BlockPos pos)
     {
         return this.isInvalidNeighbor(worldIn, pos, EnumFacing.NORTH) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.SOUTH) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.WEST) || this.isInvalidNeighbor(worldIn, pos, EnumFacing.EAST);
-    }
-
-    /**
-     * The type of render function called. 3 for standard block models, 2 for TESR's, 1 for liquids, -1 is no render
-     */
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
-        return EnumBlockRenderType.INVISIBLE;
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
@@ -84,9 +79,10 @@ public class BlockColoredBed extends BlockBed  implements ITileEntityProvider
      */
     public TileEntity createNewTileEntity(World worldIn, int meta)
     {
-        return new TileEntityBell();
+    	System.out.println("Creating tile entity " + worldIn.isRemote);
+        return new TileEntityColoredBed();
     }
-
+    
     @Nullable
 
     /**
@@ -94,11 +90,50 @@ public class BlockColoredBed extends BlockBed  implements ITileEntityProvider
      */
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        //return state.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : this.inventoryItem;
+        return state.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.COLORED_BED;
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        //return new ItemStack(this.inventoryItem);
+        return new ItemStack(Items.COLORED_BED, 1, state.getValue(DYE));
+    }
+    
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, new IProperty[] {FACING, PART, OCCUPIED, DYE });
+    }
+    
+    /**
+     * Convert the given metadata into a BlockState for this Block
+     */
+    public IBlockState getStateFromMeta(int meta)
+    {
+        EnumFacing enumfacing = EnumFacing.getHorizontal(meta & 3);
+        //System.out.println("GetState: " + meta);
+        IBlockState state = this.getDefaultState().withProperty(DYE, (meta >> 4) & 15);
+        return (meta & 8) > 0 ? state.withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, Boolean.valueOf((meta & 4) > 0)) : state.withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+    }
+    
+    /**
+     * Convert the BlockState into the correct metadata value
+     */
+    public int getMetaFromState(IBlockState state)
+    {
+        int i = 0;
+        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
+
+        if (state.getValue(PART) == BlockBed.EnumPartType.HEAD)
+        {
+            i |= 8;
+
+            if (((Boolean)state.getValue(OCCUPIED)).booleanValue())
+            {
+                i |= 4;
+            }
+        }
+        
+        //System.out.println("GetMeta: " + i);
+
+        return i;
     }
 }

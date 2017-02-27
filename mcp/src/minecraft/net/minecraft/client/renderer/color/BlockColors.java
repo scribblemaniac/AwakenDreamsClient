@@ -1,6 +1,10 @@
 package net.minecraft.client.renderer.color;
 
 import javax.annotation.Nullable;
+
+import com.elementfx.tvp.ad.block.BlockColoredBed;
+import com.elementfx.tvp.ad.tileentity.TileEntityColoredBed;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockOldLeaf;
@@ -13,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.ObjectIntIdentityMap;
@@ -139,6 +144,23 @@ public class BlockColors
                 return worldIn != null && pos != null ? 2129968 : 7455580;
             }
         }, new Block[] {Blocks.WATERLILY});
+        // Begin Awaken Dreams code
+        blockcolors.registerBlockColorHandler(new IBlockColor()
+        {
+        	public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex)
+            {
+        		if(worldIn != null && pos != null)
+        		{
+        			TileEntity tileentity = worldIn.getTileEntity(pos);
+        			if(tileentity != null && tileentity instanceof TileEntityColoredBed)
+        			{
+        				return ItemDye.DYE_COLORS[15 - ((TileEntityColoredBed)tileentity).getColor()];
+        			}
+        		}
+                return 0;
+            }
+        }, new Block[] {Blocks.COLORED_BED});
+        // End Awaken Dreams code
         return blockcolors;
     }
 

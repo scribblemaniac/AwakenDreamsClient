@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import com.elementfx.tvp.ad.block.BlockColoredBed;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -329,6 +330,7 @@ public class BlockModelShapes
         this.registerBlockWithStateMapper(Blocks.MORDOR_DOOR, (new StateMap.Builder()).ignore(new IProperty[] {BlockDoor.POWERED}).build());
         this.registerBlockWithStateMapper(Blocks.PRISON_DOOR, (new StateMap.Builder()).ignore(new IProperty[] {BlockDoor.POWERED}).build());
         this.registerBlockWithStateMapper(Blocks.SINDAR_DOOR, (new StateMap.Builder()).ignore(new IProperty[] {BlockDoor.POWERED}).build());
+        this.registerBlockWithStateMapper(Blocks.COLORED_BED, (new StateMap.Builder()).ignore(new IProperty[] {BlockBed.OCCUPIED, BlockColoredBed.DYE}).build());
         //this.registerBuiltInBlocks(Blocks.BELL);
         // End Awaken Dreams code
     }
