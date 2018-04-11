@@ -79,6 +79,9 @@ public abstract class EntityLivingBase extends Entity
     private static final DataParameter<Integer> POTION_EFFECTS = EntityDataManager.<Integer>createKey(EntityLivingBase.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HIDE_PARTICLES = EntityDataManager.<Boolean>createKey(EntityLivingBase.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> ARROW_COUNT_IN_ENTITY = EntityDataManager.<Integer>createKey(EntityLivingBase.class, DataSerializers.VARINT);
+    // Begin Awaken Dreams code
+    private static final DataParameter<Integer> TIME_IN_NET = EntityDataManager.<Integer>createKey(EntityLivingBase.class, DataSerializers.VARINT);
+    // End Awaken Dreams code
     private AbstractAttributeMap attributeMap;
     private final CombatTracker _combatTracker = new CombatTracker(this);
     private final Map<Potion, PotionEffect> activePotionsMap = Maps.<Potion, PotionEffect>newHashMap();
@@ -259,6 +262,9 @@ public abstract class EntityLivingBase extends Entity
         this.dataManager.register(HIDE_PARTICLES, Boolean.valueOf(false));
         this.dataManager.register(ARROW_COUNT_IN_ENTITY, Integer.valueOf(0));
         this.dataManager.register(HEALTH, Float.valueOf(1.0F));
+        // Begin Awaken Dreams code
+        this.dataManager.register(TIME_IN_NET, Integer.valueOf(0));
+        // End Awaken Dreams code
     }
 
     protected void applyEntityAttributes()
@@ -645,6 +651,10 @@ public abstract class EntityLivingBase extends Entity
         }
 
         compound.setBoolean("FallFlying", this.isElytraFlying());
+        
+        // Begin Awaken Dreams code
+        compound.setInteger("timeInNet", this.getTimeInNet());
+        // End Awaken Dreams code
     }
 
     /**
@@ -694,6 +704,10 @@ public abstract class EntityLivingBase extends Entity
         {
             this.setFlag(7, true);
         }
+        
+        // Begin Awaken Dreams code
+        this.setTimeInNet(compound.getInteger("timeInNet"));
+        // End Awaken Dreams code
     }
 
     protected void updatePotionEffects()
@@ -979,6 +993,12 @@ public abstract class EntityLivingBase extends Entity
         else
         {
             this.entityAge = 0;
+            
+            // Begin Awaken Dreams code
+            if (source.isFireDamage() || (source.getEntity() instanceof EntityLivingBase && this.rand.nextBoolean())) {
+            		this.setIsInNet(false);
+            }
+            // End Awaken Dreams code
 
             if (this.getHealth() <= 0.0F)
             {
@@ -1751,7 +1771,9 @@ public abstract class EntityLivingBase extends Entity
      */
     protected boolean isMovementBlocked()
     {
-        return this.getHealth() <= 0.0F;
+    		// Begin Awaken Dreams code
+        return this.getHealth() <= 0.0F || this.isInNet();
+        // End Awaken Dreams code
     }
 
     /**
@@ -2155,6 +2177,30 @@ public abstract class EntityLivingBase extends Entity
     {
         return false;
     }
+    
+    // Begin Awaken Dreams code
+    public int getTimeInNet()
+	{
+    		return this.dataManager.get(TIME_IN_NET);
+	}
+
+	public void setTimeInNet(int time)
+	{
+		System.out.println("Setting time to: " + time);
+		this.dataManager.set(TIME_IN_NET, Math.max(time, 0));
+	}
+
+	public boolean isInNet()
+	{
+		//System.out.println("isinnet: " + ( this.getTimeInNet() > 0 ? "true" : "false"));
+		return this.getTimeInNet() > 0;
+	}
+
+	public void setIsInNet(boolean inNet)
+	{
+		this.setTimeInNet(inNet ? 100 : 0);
+	}
+	// End Awaken Dreams code
 
     /**
      * Called to update the entity's position/logic.
@@ -2164,8 +2210,19 @@ public abstract class EntityLivingBase extends Entity
         super.onUpdate();
         this.updateActiveHand();
 
+        if (this.isInNet()) {
+			this.setTimeInNet(this.getTimeInNet()-1);
+			System.out.println("Reduce from " + this.getTimeInNet());
+		}
+
         if (!this.worldObj.isRemote)
         {
+        		// Begin Awaken Dreams code
+        		//System.out.println(this);
+        		/*if(this.getEntityId() == 46) {
+        			System.out.println(this);
+        		}*/
+        		// End Awaken Dreams code
             int i = this.getArrowCountInEntity();
 
             if (i > 0)

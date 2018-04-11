@@ -467,6 +467,7 @@ public class Items
     public static final Item ORC_SWORD_3;
     public static final Item MORANNON_DAGGER;
     public static final Item ORC_SPEAR;
+    public static final Item NET;
     public static final Item CASTLE_DOOR;
     public static final Item DOL_GULDUR_PRISON_DOOR;
     public static final Item HILLMEN_DOOR;
@@ -1002,6 +1003,7 @@ public class Items
             ORC_SWORD_3 = getRegisteredADItem("orc_sword_3");
             MORANNON_DAGGER = getRegisteredADItem("morannon_dagger");
             ORC_SPEAR = getRegisteredADItem("orc_spear");
+            NET = getRegisteredADItem("net");
             CASTLE_DOOR = getRegisteredADItem("castle_door");
             Blocks.CASTLE_DOOR.setItem(CASTLE_DOOR);
             DOL_GULDUR_PRISON_DOOR = getRegisteredADItem("dol_guldur_prison_door");

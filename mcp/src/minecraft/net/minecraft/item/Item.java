@@ -9,6 +9,7 @@ import com.elementfx.tvp.ad.item.ItemCustomBed;
 import com.elementfx.tvp.ad.item.ItemCustomEgg;
 import com.elementfx.tvp.ad.item.ItemCustomFood;
 import com.elementfx.tvp.ad.item.ItemElvenWeapon;
+import com.elementfx.tvp.ad.item.ItemNet;
 import com.elementfx.tvp.ad.item.ItemRing;
 import com.elementfx.tvp.ad.item.ItemRucksack;
 import com.elementfx.tvp.ad.item.ItemStakeSeeds;
@@ -1593,7 +1594,7 @@ public class Item
         //registerADItem(6298, "morannon_Orc_Shield", new Item());
         registerADItem(6299, "morannon_Dagger", new ItemWeapon(99, 3));
         registerADItem(6300, "orc_Spear", new ItemWeapon(123, 6));
-        //registerADItem(6301, "net", new Item());
+        registerADItem(6301, "net", new ItemNet());
         //registerADItem(6302, "erus_Staff", new ItemValarErusStaff());
         registerADItem(6303, "castle_Door", new ItemDoor(Blocks.CASTLE_DOOR));
         registerADItem(6304, "dol_Guldur_Prison_Door", new ItemDoor(Blocks.DOL_GULDUR_PRISON_DOOR));

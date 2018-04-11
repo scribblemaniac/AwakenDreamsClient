@@ -4,8 +4,10 @@ import com.elementfx.tvp.ad.client.renderer.entity.RenderDuck;
 import com.elementfx.tvp.ad.entity.passive.EntityDuck;
 import com.elementfx.tvp.ad.entity.projectile.EntityCustomArrow;
 import com.elementfx.tvp.ad.entity.projectile.EntityCustomEgg;
+import com.elementfx.tvp.ad.entity.projectile.EntityThrowingNet;
 import com.elementfx.tvp.ad.entity.projectile.EntityThrowingStone;
 import com.elementfx.tvp.ad.item.ItemElvenWeapon;
+import com.elementfx.tvp.client.renderer.entity.layers.LayerNetting;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -224,6 +226,12 @@ public class RenderManager
         this.entityRenderMap.put(EntityDuck.class, new RenderDuck(this, new ModelChicken(), 0.3F));
         this.entityRenderMap.put(EntityCustomEgg.class, new RenderSnowball(this, Items.DUCK_EGG, itemRendererIn));
         this.entityRenderMap.put(EntityCustomArrow.class, new RenderTippedArrow(this));
+        this.entityRenderMap.put(EntityThrowingNet.class, new RenderSnowball(this, Items.NET, itemRendererIn));
+        for(Render<? extends Entity> eRenderer : entityRenderMap.values()) {
+        		if(eRenderer instanceof RenderLivingBase) {
+        			((RenderLivingBase) eRenderer).addLayer(new LayerNetting((RenderLivingBase)eRenderer));
+        		}
+        }
         //End Awaken Dreams code
         this.playerRenderer = new RenderPlayer(this);
         this.skinMap.put("default", this.playerRenderer);

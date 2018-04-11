@@ -3,6 +3,7 @@ package net.minecraft.client.network;
 import com.elementfx.tvp.ad.client.gui.inventory.GuiRucksack;
 import com.elementfx.tvp.ad.entity.projectile.EntityCustomArrow;
 import com.elementfx.tvp.ad.entity.projectile.EntityCustomEgg;
+import com.elementfx.tvp.ad.entity.projectile.EntityThrowingNet;
 import com.elementfx.tvp.ad.entity.projectile.EntityThrowingStone;
 import com.elementfx.tvp.ad.item.ItemRucksack;
 import com.google.common.collect.Maps;
@@ -461,6 +462,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         else if (packetIn.getType() == 503)
         {
         	entity = new EntityCustomArrow(this.clientWorldController, d0, d1, d2);
+        }
+        else if (packetIn.getType() == 504)
+        {
+        	entity = new EntityThrowingNet(this.clientWorldController, d0, d1, d2);
         }
         //End Awaken Dreams code
 
